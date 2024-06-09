@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        @apply font-nunito text-white text-[22px];
+    }
+
+    body {
+        @apply min-h-screen bg-[#1E90FF];
+    }
+
+    section {
+        @apply w-full max-w-[420px] min-h-[400px] flex flex-col justify-start p-4 bg-black/[0.4];
+    }
+
+    form {
+        @apply flex flex-col justify-evenly flex-1 pb-4;
+    }
+
+    input[type='text'],
+    input[type='password'],
+    button[type='submit'],
+    button[type='button'],
+    textarea {
+        @apply font-nunito text-[22px] p-2 rounded-lg text-black;
+    }
+
+    label {
+        @apply mt-4;
+    }
+
+    button:disabled {
+        @apply mt-8 bg-white/30;
+    }
+}
+
+@layer components {
+    .offScreen {
+        @apply absolute -left-[9999px];
+    }
+
+    .instructions {
+        @apply text-[0.75rem] rounded-lg p-1 bg-black text-white relative -bottom-[10px];
+    }
+
+    .errorMsg {
+        @apply bg-pink-300 text-red-700 font-bold p-2 mb-2;
+    }
+}
