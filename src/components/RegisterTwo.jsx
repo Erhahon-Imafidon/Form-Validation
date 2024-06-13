@@ -8,8 +8,12 @@ import {
     FaTimes,
 } from 'react-icons/fa';
 
+import Axios from '../api/axios.js';
+
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+
+const REGISTER_URL = '/register';
 
 const RegisterTwo = () => {
     const userRef = useRef();
@@ -40,17 +44,14 @@ const RegisterTwo = () => {
     // UseEffect for testing if the username is valid
     useEffect(() => {
         const result = USER_REGEX.test(username);
-        console.log(result);
         setValidName(result);
     }, [username]);
 
     // UseEffect for testing password and confirm password
     useEffect(() => {
         const result = PWD_REGEX.test(pwd);
-        console.log(result);
         setValidPwd(result);
         const match = pwd === confirmPwd;
-        console.log(match);
         setValidConfirmPwd(match);
     }, [pwd, confirmPwd]);
 
@@ -59,8 +60,46 @@ const RegisterTwo = () => {
         setErrorMsg('');
     }, [username, pwd, confirmPwd]);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        // if button is enabled with JS hack
+        const v1 = USER_REGEX.test(username);
+        const v2 = PWD_REGEX.test(pwd);
+        if (!v1 || !v2) {
+            setErrorMsg('Invalid Entry');
+            return;
+        }
+
+        try {
+            const response = await Axios.post(
+                REGISTER_URL,
+                JSON.stringify({
+                    user: username,
+                    pwd,
+                }),
+                {
+                    headers: { 'content-type': 'application/json' },
+                    withCredentials: true,
+                }
+            );
+            console.log(response.data);
+            console.log(response.accessToken);
+            console.log(JSON.stringify(response));
+            setSuccess(true);
+            setUsername('');
+            setPwd('');
+            setConfirmPwd('');
+        } catch (err) {
+            if (!err?.response) {
+                setErrorMsg('No Server Response');
+            } else if (err.response?.status === 409) {
+                setErrorMsg('Username Taken');
+            } else {
+                setErrorMsg('Registration Failed');
+            }
+
+            errRef.current.focus();
+        }
     };
 
     return (
@@ -242,7 +281,22 @@ const RegisterTwo = () => {
                             <FaInfoCircle className="inline-block mr-1" />
                             Must match the first password input field.
                         </p>
+                        <button
+                            type="submit"
+                            className="mt-8 bg-white"
+                            disabled={
+                                !validName || !validPwd || !validConfirmPwd
+                            }
+                        >
+                            Sign Up
+                        </button>
                     </form>
+                    <p>
+                        Already Registered ? <br />
+                        <span className="inline underline">
+                            <a href="#">Sign In</a>
+                        </span>
+                    </p>
                 </section>
             )}
         </>
