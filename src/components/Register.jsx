@@ -35,7 +35,7 @@ const Register = () => {
 
     // An Effect to set the focus to the username input on page load
     useEffect(() => {
-        userRef.current.focus();
+        userRef.current?.focus();
     }, []);
 
     // Effect to check if the username is valid

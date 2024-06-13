@@ -1,14 +1,21 @@
 // eslint-disable-next-line no-unused-vars
 import { useEffect, useRef, useState } from 'react';
+import {
+    FaCheck,
+    FaEye,
+    FaEyeSlash,
+    FaInfoCircle,
+    FaTimes,
+} from 'react-icons/fa';
 
-const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]$/;
+const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 const RegisterTwo = () => {
     const userRef = useRef();
     const errRef = useRef();
 
-    const [userName, setUserName] = useState('');
+    const [username, setUsername] = useState('');
     const [validName, setValidName] = useState(false);
     const [userFocus, setUserFocus] = useState(false);
 
@@ -20,30 +27,41 @@ const RegisterTwo = () => {
     const [validConfirmPwd, setValidConfirmPwd] = useState(false);
     const [confirmPwdFocus, setConfirmPwdFocus] = useState(false);
 
+    const [showPwd, setShowPwd] = useState(false);
+
     const [errorMsg, setErrorMsg] = useState('');
     const [success, setSuccess] = useState(false);
 
     // UseEffect to focus the on the username input on page load
     useEffect(() => {
-        userRef.current.focus();
+        userRef.current?.focus();
     }, []);
 
     // UseEffect for testing if the username is valid
     useEffect(() => {
-        const result = USER_REGEX.test(userName);
+        const result = USER_REGEX.test(username);
         console.log(result);
-        setUserName(result);
-    }, [userName]);
+        setValidName(result);
+    }, [username]);
 
     // UseEffect for testing password and confirm password
     useEffect(() => {
-        const result = PWD_REGEX.test(userName);
+        const result = PWD_REGEX.test(pwd);
         console.log(result);
         setValidPwd(result);
         const match = pwd === confirmPwd;
         console.log(match);
         setValidConfirmPwd(match);
     }, [pwd, confirmPwd]);
+
+    // UseEffect for when there's an error
+    useEffect(() => {
+        setErrorMsg('');
+    }, [username, pwd, confirmPwd]);
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+    };
 
     return (
         <>
@@ -63,6 +81,168 @@ const RegisterTwo = () => {
                     >
                         {errorMsg}
                     </p>
+                    <h1> Register</h1>
+
+                    <form onSubmit={handleSubmit}>
+                        <label htmlFor="username">
+                            <p>
+                                Username:
+                                <span
+                                    className={
+                                        validName
+                                            ? 'text-lime-500' +
+                                              ' ml-2 inline-block mb-[-3px]'
+                                            : 'hidden'
+                                    }
+                                >
+                                    <FaCheck />
+                                </span>
+                                <span
+                                    className={
+                                        username && !validName
+                                            ? 'text-red-600 ml-2 inline-block mb-[-4px]'
+                                            : 'hidden'
+                                    }
+                                >
+                                    <FaTimes />
+                                </span>
+                            </p>
+                        </label>
+                        <input
+                            id="username"
+                            ref={userRef}
+                            type="text"
+                            autoComplete="off"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            required
+                            aria-invalid={validName ? 'false' : 'true'}
+                            aria-describedby="instruct-note"
+                            onFocus={() => setUserFocus(true)}
+                            onBlur={() => setUserFocus(false)}
+                        />
+                        <p
+                            id="instruct-note"
+                            className={
+                                userFocus && username && !validName
+                                    ? 'instructions'
+                                    : 'offScreen'
+                            }
+                        >
+                            <FaInfoCircle />
+                            4 to 24 characters <br />
+                            Must begin with a Letter <br />
+                            Letters, numbers, hyphens, and underscore allowed
+                        </p>
+
+                        <label htmlFor="pwd">
+                            Password:
+                            <span
+                                className={
+                                    validPwd
+                                        ? 'text-lime-500 ml-2' +
+                                          ' inline-block mb-[-3px]'
+                                        : 'hidden'
+                                }
+                            >
+                                <FaCheck />
+                            </span>
+                            <span
+                                className={
+                                    validPwd || !pwd
+                                        ? 'hidden'
+                                        : 'text-red-600 ml-2 inline-block mb-[-4px]'
+                                }
+                            >
+                                <FaTimes />
+                            </span>
+                        </label>
+                        <div className="relative">
+                            <button
+                                type="button"
+                                onClick={() => setShowPwd(!showPwd)}
+                                className="absolute right-0 top-[5px] z-50"
+                            >
+                                {!showPwd ? <FaEye /> : <FaEyeSlash />}
+                            </button>
+                            <input
+                                type={!showPwd ? 'password' : 'text'}
+                                id="pwd"
+                                required
+                                value={pwd}
+                                onChange={(e) => setPwd(e.target.value)}
+                                aria-invalid={!validPwd}
+                                aria-describedby="pwdnote"
+                                onFocus={() => setPwdFocus(true)}
+                                onBlur={() => setPwdFocus(false)}
+                                className="w-full"
+                            />
+                        </div>
+                        <p
+                            id="pwdnote"
+                            className={
+                                pwdFocus && !validPwd && pwd
+                                    ? 'instructions'
+                                    : 'offScreen'
+                            }
+                        >
+                            <FaInfoCircle />
+                            8 to 24 characters. <br />
+                            Must include uppercase and lowercase letters, number
+                            and a special character. <br />
+                            Allowed special characters include
+                            <span aria-label="exclamation mark">!</span>
+                            <span aria-label="at symbol">@</span>
+                            <span aria-label="hashtag">#</span>
+                            <span aria-label="dollar sign">$</span>
+                            <span aria-label="percent">%</span>
+                        </p>
+
+                        <label htmlFor="confirmPwd">
+                            Confirm Password:
+                            <span
+                                className={
+                                    validConfirmPwd && confirmPwd
+                                        ? 'text-lime-500 ml-2' +
+                                          ' inline-block mb-[-3px]'
+                                        : 'hidden'
+                                }
+                            >
+                                <FaCheck />
+                            </span>
+                            <span
+                                className={
+                                    validConfirmPwd || !confirmPwd
+                                        ? 'hidden'
+                                        : 'text-red-600 ml-2 inline-block mb-[-4px]'
+                                }
+                            >
+                                <FaTimes />
+                            </span>
+                        </label>
+
+                        <input
+                            id="confirmPwd"
+                            type="password"
+                            value={confirmPwd}
+                            onChange={(e) => setConfirmPwd(e.target.value)}
+                            aria-invalid={!confirmPwd}
+                            aria-describedby="confirmnote"
+                            onFocus={() => setConfirmPwdFocus(true)}
+                            onBlur={() => setConfirmPwdFocus(false)}
+                        />
+                        <p
+                            id="confirmnote"
+                            className={
+                                confirmPwdFocus && !validConfirmPwd
+                                    ? 'instructions'
+                                    : 'offScreen'
+                            }
+                        >
+                            <FaInfoCircle className="inline-block mr-1" />
+                            Must match the first password input field.
+                        </p>
+                    </form>
                 </section>
             )}
         </>
