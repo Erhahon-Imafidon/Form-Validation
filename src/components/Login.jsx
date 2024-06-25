@@ -30,6 +30,17 @@ const Login = () => {
                     {errMsg}
                 </p>
                 <h1>Sign In</h1>
+                <form>
+                    <label htmlFor="username">Username:</label>
+                    <input
+                        id="username"
+                        type="text"
+                        requiredgit
+                        ref={userRef}
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                    />
+                </form>
             </section>
         </div>
     );
