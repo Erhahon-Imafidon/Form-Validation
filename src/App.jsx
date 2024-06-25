@@ -1,10 +1,10 @@
-import RegisterTwo from './components/RegisterTwo.jsx';
+import Login from './components/Login.jsx';
 
 function App() {
     return (
         <div className="flex flex-col justify-center items-center min-h-screen py-4 px-2">
-            {/*<Register />*/}
-            <RegisterTwo />
+            <Login />
+            {/*<RegisterTwo />*/}
         </div>
     );
 }
