@@ -82,13 +82,12 @@ const RegisterTwo = () => {
                     withCredentials: true,
                 }
             );
-            console.log(response.data);
-            console.log(response.accessToken);
-            console.log(JSON.stringify(response));
-            setSuccess(true);
+            console.log(JSON.stringify(response?.data));
+            console.log(response?.data?.accessToken);
             setUsername('');
             setPwd('');
             setConfirmPwd('');
+            setSuccess(true);
         } catch (err) {
             if (!err?.response) {
                 setErrorMsg('No Server Response');

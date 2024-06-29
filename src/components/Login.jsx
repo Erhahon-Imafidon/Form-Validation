@@ -41,22 +41,30 @@ const Login = () => {
                     withCredentials: true,
                 }
             );
-            console.log(JSON.stringify(response?.data));
+            // console.log(JSON.stringify(response?.data));
+
             const accessToken = response?.data?.accessToken;
-            console.log('accessToken: ', accessToken);
             const roles = response?.data?.roles;
-            console.log('roles: ', roles);
+            // set the values to the global state
             setAuth({ username, pwd, accessToken, roles });
+            // Clears the input fields
             setUsername('');
             setPwd('');
             setSuccess(true);
             setIsLoading(false);
         } catch (err) {
-            if (!err.response) {
+            if (!err?.response) {
                 setErrMsg('No server response');
+            } else if (err.response?.status === 401) {
+                setErrMsg('Unauthorized');
+            } else if (err.response?.status === 400) {
+                setErrMsg('Missing username or password');
+            } else {
+                setErrMsg('Login Failed');
             }
+            errRef.current?.focus();
+            setIsLoading(false);
         }
-        errRef.current?.focus();
     };
 
     return (
