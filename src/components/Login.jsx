@@ -14,7 +14,7 @@ const Login = () => {
         userRef.current?.focus();
     }, []);
 
-    // Effect to clear out the error message when the user reponds to the error
+    // Effect to clear out the error message when the user responds to the error
     useEffect(() => {
         setErrMsg('');
     }, [username, pwd]);
