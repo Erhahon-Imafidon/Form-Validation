@@ -19,52 +19,66 @@ const Login = () => {
         setErrMsg('');
     }, [username, pwd]);
 
-    const handdleSubmit = (e) => {
+    const handdleSubmit = async (e) => {
         e.preventDefault();
+        console.log('password:' + pwd, 'username:' + username);
+        setSuccess(true);
+        setPwd('');
+        setUsername('');
     };
 
     return (
-        <div>
-            <section>
-                <p
-                    ref={errRef}
-                    className={errMsg ? 'errorMsg' : 'offScreen'}
-                    aria-live="assertive"
-                >
-                    {errMsg}
-                </p>
-                <h1>Sign In</h1>
-                <form onSubmit={handdleSubmit}>
-                    <label htmlFor="username">Username:</label>
-                    <input
-                        id="username"
-                        type="text"
-                        required
-                        ref={userRef}
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                    />
+        <>
+            {success ? (
+                <section>
+                    <h1>Hi you are logged in!</h1>
+                    <br />
+                    <p>
+                        <a href="#">Go to homepage</a>
+                    </p>
+                </section>
+            ) : (
+                <section>
+                    <p
+                        ref={errRef}
+                        className={errMsg ? 'errorMsg' : 'offScreen'}
+                        aria-live="assertive"
+                    >
+                        {errMsg}
+                    </p>
+                    <h1>Sign In</h1>
+                    <form onSubmit={handdleSubmit}>
+                        <label htmlFor="username">Username:</label>
+                        <input
+                            id="username"
+                            type="text"
+                            required
+                            ref={userRef}
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                        />
 
-                    <label htmlFor="pwd">Password:</label>
-                    <input
-                        id="pwd"
-                        type="password"
-                        required
-                        value={pwd}
-                        onChange={(e) => setPwd(e.target.value)}
-                    />
-                    <button type="submit" className="mt-8 bg-white">
-                        Sign In
-                    </button>
-                </form>
-                <p>
-                    Need an Account? <br />
-                    <span className="inline underline">
-                        <a href="#">Sign Up</a>
-                    </span>
-                </p>
-            </section>
-        </div>
+                        <label htmlFor="pwd">Password:</label>
+                        <input
+                            id="pwd"
+                            type="password"
+                            required
+                            value={pwd}
+                            onChange={(e) => setPwd(e.target.value)}
+                        />
+                        <button type="submit" className="mt-8 bg-white">
+                            Sign In
+                        </button>
+                    </form>
+                    <p>
+                        Need an Account? <br />
+                        <span className="inline underline">
+                            <a href="#">Sign Up</a>
+                        </span>
+                    </p>
+                </section>
+            )}
+        </>
     );
 };
 
