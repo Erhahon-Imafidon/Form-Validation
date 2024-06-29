@@ -1,6 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
+import AuthContext from '../context/AuthProvider.js';
 
 const Login = () => {
+    const { sethAuth } = useContext(AuthContext);
     const userRef = useRef();
     const errRef = useRef();
 
