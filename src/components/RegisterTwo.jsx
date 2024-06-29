@@ -83,7 +83,7 @@ const RegisterTwo = () => {
                 }
             );
             console.log(JSON.stringify(response?.data));
-            console.log(response?.data?.accessToken);
+            // console.log(response?.data?.accessToken);
             setUsername('');
             setPwd('');
             setConfirmPwd('');
