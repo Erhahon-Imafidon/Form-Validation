@@ -1,6 +1,11 @@
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
+import AuthContext from '../context/AuthProvider.jsx';
+import Axios from '../api/axios.js';
+
+const LOGIN_URL = '/auth';
 
 const Login = () => {
+    const { setAuth } = useContext(AuthContext);
     const userRef = useRef();
     const errRef = useRef();
 
@@ -22,6 +27,36 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
+
+        try {
+            const response = await Axios.post(
+                LOGIN_URL,
+                JSON.stringify({
+                    user: username,
+                    pwd,
+                }),
+                { headers: { 'content-type': 'application/json' } },
+                {
+                    withCredentials: true,
+                }
+            );
+            console.log(JSON.stringify(response?.data));
+            const accessToken = response?.data?.accessToken;
+            console.log('accessToken: ', accessToken);
+            const roles = response?.data?.roles;
+            console.log('roles: ', roles);
+            setAuth({ username, pwd, accessToken, roles });
+            setUsername('');
+            setPwd('');
+            setSuccess(true);
+            setIsLoading(false);
+        } catch (err) {
+            if (!err.response) {
+                setErrMsg('No server response');
+            }
+        }
+        errRef.current?.focus();
     };
 
     return (
