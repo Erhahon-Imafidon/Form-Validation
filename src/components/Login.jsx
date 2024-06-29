@@ -19,9 +19,9 @@ const Login = () => {
         setErrMsg('');
     }, [username, pwd]);
 
-    const handdleSubmit = async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('password:' + pwd, 'username:' + username);
+        console.log('password: ' + pwd, 'username: ' + username);
         setSuccess(true);
         setPwd('');
         setUsername('');
@@ -47,7 +47,7 @@ const Login = () => {
                         {errMsg}
                     </p>
                     <h1>Sign In</h1>
-                    <form onSubmit={handdleSubmit}>
+                    <form onSubmit={handleSubmit}>
                         <label htmlFor="username">Username:</label>
                         <input
                             id="username"
