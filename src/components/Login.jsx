@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from 'react';
-import AuthContext from '../context/AuthProvider.js';
+import AuthContext from '../context/AuthProvider.jsx';
 
 const Login = () => {
     const { sethAuth } = useContext(AuthContext);
