@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 const Home = () => {
     return (
         <section className="space-y-4">
-            <h1 className="font-bold text-2xl">Home</h1>
+            <h1>Home</h1>
             <p>You are logged in!</p>
             <Link to="/editor">Go to the Editor Page</Link>
             <Link to="/admin">Go to the Admin Page</Link>
