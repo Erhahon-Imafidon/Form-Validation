@@ -1,7 +1,7 @@
 import React from 'react';
 
 const LinkPage = () => {
-    return <div>LinkPage</div>;
+    return <div>Link Page</div>;
 };
 
 export default LinkPage;

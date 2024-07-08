@@ -1,7 +1,19 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
-    return <div>Home</div>;
+    return (
+        <section className="space-y-4">
+            <h1 className="font-bold text-2xl">Home</h1>
+            <p>You are logged in!</p>
+            <Link to="/editor">Go to the Editor Page</Link>
+            <Link to="/admin">Go to the Admin Page</Link>
+            <Link to="/lounge">Go to the Lounge Page</Link>
+            <Link to="/linkpage">Go to the Link Page Page</Link>
+            <button className="bg-white text-black w-20 rounded-lg py-1">
+                Sign Out
+            </button>
+        </section>
+    );
 };
 
 export default Home;
