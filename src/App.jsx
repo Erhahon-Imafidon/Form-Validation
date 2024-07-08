@@ -17,10 +17,10 @@ function App() {
         <Routes>
             <Route path="/" element={<Layout />}>
                 {/*Public Routes*/}
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<RegisterTwo />} />
-                <Route path="/linkpage" element={<LinkPage />} />
-                <Route path="/unauthorized" element={<Unauthorized />} />
+                <Route path="login" element={<Login />} />
+                <Route path="register" element={<RegisterTwo />} />
+                <Route path="linkpage" element={<LinkPage />} />
+                <Route path="unauthorized" element={<Unauthorized />} />
 
                 {/*Protected Routes*/}
                 <Route path="/" element={<Home />} />
