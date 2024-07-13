@@ -1,12 +1,8 @@
 import { Link } from 'react-router-dom';
-import useAuth from '../hooks/useAuth.js';
+import useLogout from '../hooks/useLogout.js';
 
 const LinkPage = () => {
-    const { setAuth } = useAuth();
-
-    const handleLogout = () => {
-        setAuth({});
-    };
+    const Logout = useLogout();
 
     return (
         <section className="space-y-4">
@@ -23,10 +19,11 @@ const LinkPage = () => {
                 <Link to="/editor">Editors Page</Link>
                 <Link to="/admin"> Admin</Link>
             </div>
-            <button className="bg-white text-black w-20 rounded-lg py-1">
-                <Link onClick={handleLogout} to={'/login'}>
-                    Sign Out
-                </Link>
+            <button
+                onClick={Logout}
+                className="bg-white text-black w-20 rounded-lg py-1"
+            >
+                Sign Out
             </button>
         </section>
     );
