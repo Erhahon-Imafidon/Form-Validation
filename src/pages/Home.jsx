@@ -8,10 +8,18 @@ const Home = () => {
         <section className="space-y-4">
             <h1>Home</h1>
             <p>You are logged in!</p>
-            <Link to="/editor">Go to the Editor Page</Link>
-            <Link to="/admin">Go to the Admin Page</Link>
-            <Link to="/lounge">Go to the Lounge Page</Link>
-            <Link to="/linkpage">Go to the Link Page Page</Link>
+            <Link className={'underline'} to="/editor">
+                Go to the Editor Page
+            </Link>
+            <Link className={'underline'} to="/admin">
+                Go to the Admin Page
+            </Link>
+            <Link className={'underline'} to="/lounge">
+                Go to the Lounge Page
+            </Link>
+            <Link className={'underline'} to="/linkpage">
+                Go to the Link Page Page
+            </Link>
             <button
                 onClick={Logout}
                 className="bg-white text-black w-20 rounded-lg py-1"

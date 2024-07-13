@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth.js';
 import Axios from '../api/axios.js';
 
@@ -47,7 +47,6 @@ const Login = () => {
             console.log(JSON.stringify(response?.data));
             const accessToken = response?.data?.accessToken;
             const roles = response?.data?.roles;
-            console.log(roles, accessToken);
             // set the values to the global state
             setAuth({ username, pwd, accessToken, roles });
             // Clears the input fields
@@ -110,7 +109,7 @@ const Login = () => {
             <p>
                 Need an Account? <br />
                 <span className="inline underline">
-                    <a href="#">Sign Up</a>
+                    <Link to="/register">Sign Up</Link>
                 </span>
             </p>
         </section>
