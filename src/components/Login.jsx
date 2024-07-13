@@ -47,6 +47,7 @@ const Login = () => {
             console.log(JSON.stringify(response?.data));
             const accessToken = response?.data?.accessToken;
             const roles = response?.data?.roles;
+            console.log(roles, accessToken);
             // set the values to the global state
             setAuth({ username, pwd, accessToken, roles });
             // Clears the input fields
