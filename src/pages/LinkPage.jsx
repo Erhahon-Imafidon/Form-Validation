@@ -16,6 +16,9 @@ const LinkPage = () => {
                 <Link to="/editor">Editors Page</Link>
                 <Link to="/admin"> Admin</Link>
             </div>
+            <button className="bg-white text-black w-20 rounded-lg py-1">
+                <Link to={'/login'}>Sign Out</Link>
+            </button>
         </section>
     );
 };

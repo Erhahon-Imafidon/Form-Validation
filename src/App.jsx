@@ -11,6 +11,7 @@ import {
 } from './pages/index.js';
 import Login from './components/Login.jsx';
 import RegisterTwo from './components/RegisterTwo.jsx';
+import RequireAuth from './components/RequireAuth.jsx';
 
 function App() {
     return (
@@ -23,10 +24,12 @@ function App() {
                 <Route path="unauthorized" element={<Unauthorized />} />
 
                 {/*Protected Routes*/}
-                <Route path="/" element={<Home />} />
-                <Route path="editor" element={<Editor />} />
-                <Route path="admin" element={<Admin />} />
-                <Route path="lounge" element={<Lounge />} />
+                <Route element={<RequireAuth />}>
+                    <Route path="/" element={<Home />} />
+                    <Route path="editor" element={<Editor />} />
+                    <Route path="admin" element={<Admin />} />
+                    <Route path="lounge" element={<Lounge />} />
+                </Route>
 
                 {/*Catch All Routes*/}
                 <Route path="*" element={<Missing />} />
