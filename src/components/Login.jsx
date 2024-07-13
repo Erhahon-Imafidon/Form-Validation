@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth.js';
 import Axios from '../api/axios.js';
 
@@ -8,11 +9,13 @@ const Login = () => {
     const { setAuth } = useAuth();
     const userRef = useRef();
     const errRef = useRef();
+    const location = useLocation();
+    const navigate = useNavigate();
+    const from = location.state?.from?.pathname || '/';
 
     const [username, setUsername] = useState('');
     const [pwd, setPwd] = useState('');
     const [errMsg, setErrMsg] = useState('');
-    const [success, setSuccess] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
     // Effect to focus on the Username input on page load
@@ -41,7 +44,7 @@ const Login = () => {
                     withCredentials: true,
                 }
             );
-            // console.log(JSON.stringify(response?.data));
+            console.log(JSON.stringify(response?.data));
             const accessToken = response?.data?.accessToken;
             const roles = response?.data?.roles;
             // set the values to the global state
@@ -49,7 +52,7 @@ const Login = () => {
             // Clears the input fields
             setUsername('');
             setPwd('');
-            setSuccess(true);
+            navigate(from, { replace: true });
             setIsLoading(false);
         } catch (err) {
             if (!err?.response) {
@@ -67,61 +70,49 @@ const Login = () => {
     };
 
     return (
-        <>
-            {success ? (
-                <section>
-                    <h1>Hi you are logged in!</h1>
-                    <br />
-                    <p>
-                        <a href="http://localhost:3000/">Go to homepage</a>
-                    </p>
-                </section>
-            ) : (
-                <section>
-                    <p
-                        ref={errRef}
-                        className={errMsg ? 'errorMsg' : 'offScreen'}
-                        aria-live="assertive"
-                    >
-                        {errMsg}
-                    </p>
-                    <h1>Sign In</h1>
-                    <form onSubmit={handleSubmit}>
-                        <label htmlFor="username">Username:</label>
-                        <input
-                            id="username"
-                            type="text"
-                            required
-                            ref={userRef}
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                        />
+        <section>
+            <p
+                ref={errRef}
+                className={errMsg ? 'errorMsg' : 'offScreen'}
+                aria-live="assertive"
+            >
+                {errMsg}
+            </p>
+            <h1>Sign In</h1>
+            <form onSubmit={handleSubmit}>
+                <label htmlFor="username">Username:</label>
+                <input
+                    id="username"
+                    type="text"
+                    required
+                    ref={userRef}
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                />
 
-                        <label htmlFor="pwd">Password:</label>
-                        <input
-                            id="pwd"
-                            type="password"
-                            required
-                            value={pwd}
-                            onChange={(e) => setPwd(e.target.value)}
-                        />
-                        <button
-                            type="submit"
-                            className="mt-8 bg-white"
-                            disabled={isLoading}
-                        >
-                            {isLoading ? 'Loading...' : 'Sign In'}
-                        </button>
-                    </form>
-                    <p>
-                        Need an Account? <br />
-                        <span className="inline underline">
-                            <a href="#">Sign Up</a>
-                        </span>
-                    </p>
-                </section>
-            )}
-        </>
+                <label htmlFor="pwd">Password:</label>
+                <input
+                    id="pwd"
+                    type="password"
+                    required
+                    value={pwd}
+                    onChange={(e) => setPwd(e.target.value)}
+                />
+                <button
+                    type="submit"
+                    className="mt-8 bg-white"
+                    disabled={isLoading}
+                >
+                    {isLoading ? 'Loading...' : 'Sign In'}
+                </button>
+            </form>
+            <p>
+                Need an Account? <br />
+                <span className="inline underline">
+                    <a href="#">Sign Up</a>
+                </span>
+            </p>
+        </section>
     );
 };
 
