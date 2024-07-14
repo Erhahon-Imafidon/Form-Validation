@@ -14,7 +14,7 @@ import RegisterTwo from './components/RegisterTwo.jsx';
 import RequireAuth from './components/RequireAuth.jsx';
 
 function App() {
-    const ROLES = {
+    const ROLES_LIST = {
         User: 2001,
         Admin: 5150,
         Editor: 1984,
@@ -30,19 +30,25 @@ function App() {
                 <Route path="unauthorized" element={<Unauthorized />} />
 
                 {/*Protected Routes*/}
-                <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
+                <Route
+                    element={<RequireAuth allowedRoles={[ROLES_LIST.User]} />}
+                >
                     <Route path="/" element={<Home />} />
                 </Route>
-                <Route element={<RequireAuth allowedRoles={[ROLES.Editor]} />}>
+                <Route
+                    element={<RequireAuth allowedRoles={[ROLES_LIST.Editor]} />}
+                >
                     <Route path="editor" element={<Editor />} />
                 </Route>
-                <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
+                <Route
+                    element={<RequireAuth allowedRoles={[ROLES_LIST.Admin]} />}
+                >
                     <Route path="admin" element={<Admin />} />
                 </Route>
                 <Route
                     element={
                         <RequireAuth
-                            allowedRoles={[ROLES.Editor, ROLES.Admin]}
+                            allowedRoles={[ROLES_LIST.Editor, ROLES_LIST.Admin]}
                         />
                     }
                 >

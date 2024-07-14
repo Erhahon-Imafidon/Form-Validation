@@ -8,33 +8,16 @@ const RequireAuth = ({ allowedRoles }) => {
     const location = useLocation();
     const { auth } = useAuth();
 
-    const hasRequiredRole = auth?.roles.find((role) =>
-        allowedRoles.includes(role)
-    );
-
-    if (hasRequiredRole) {
+    return auth?.roles?.find((role) => allowedRoles?.includes(role)) ? (
         // User is Authorized
-        return <Outlet />;
-    } else if (auth?.username) {
+        <Outlet />
+    ) : auth?.username ? (
         // User is Authenticated but not Authorized with the required role
-        return (
-            <Navigate to={'unauthorized'} state={{ from: location }} replace />
-        );
-    } else {
+        <Navigate to={'/unauthorized'} state={{ from: location }} replace />
+    ) : (
         // User not Authenticated
-        <Navigate to={'/login'} state={{ from: location }} replace />;
-    }
-
-    // User is Authorized
-    // return auth?.roles?.find((role) => allowedRoles?.includes(role)) ? (
-    // User is Authenticated but not Authorized
-    //     <Outlet />
-    // ) : auth?.username ? (
-    //     <Navigate to={'unauthorized'} state={{ from: location }} replace />
-    // ) : (
-    // User not Authenticated
-    //     <Navigate to={'/login'} state={{ from: location }} replace />
-    // );
+        <Navigate to={'/login'} state={{ from: location }} replace />
+    );
 };
 
 RequireAuth.propTypes = {
