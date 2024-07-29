@@ -1,5 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
     FaCheck,
     FaEye,
@@ -293,7 +294,7 @@ const RegisterTwo = () => {
                     <p>
                         Already Registered ? <br />
                         <span className="inline underline">
-                            <a href="#">Sign In</a>
+                            <Link to={'/login'}> Sign In</Link>
                         </span>
                     </p>
                 </section>
