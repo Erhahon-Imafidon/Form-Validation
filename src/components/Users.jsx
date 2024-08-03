@@ -41,6 +41,10 @@ const Users = () => {
             ) : (
                 <p>No Users To Display</p>
             )}
+            <br />
+            <button className="bg-white text-black w-20 rounded-lg py-1">
+                Refresh
+            </button>
         </article>
     );
 };

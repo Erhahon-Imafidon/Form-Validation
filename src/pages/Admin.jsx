@@ -8,7 +8,7 @@ const Admin = () => {
             <br />
             <Users />
             <br />
-            <div className="flex-1">
+            <div className="mt-auto">
                 <Link to={'/'}>Home</Link>
             </div>
         </section>
