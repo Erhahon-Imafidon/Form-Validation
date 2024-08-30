@@ -98,7 +98,7 @@ const RegisterTwo = () => {
                 setErrorMsg('Registration Failed');
             }
 
-            errRef.current.focus();
+            errRef.current?.focus();
         }
     };
 
@@ -108,7 +108,7 @@ const RegisterTwo = () => {
                 <section>
                     <h1>You have been Successfully Registered!</h1>
                     <p>
-                        <a href="#">Log In</a>
+                        <Link to={'/login'}>Log In</Link>
                     </p>
                 </section>
             ) : (

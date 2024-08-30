@@ -16,13 +16,15 @@ const Users = () => {
                     signal: controllers.signal,
                 });
                 console.log(response.data);
-                isMounted && setUsers(response?.data);
+                const newUsers = response.data;
+                isMounted && setUsers(newUsers);
             } catch (err) {
-                console.log(err);
+                console.log('Failed to fetch users', err);
             }
         };
 
         getUsers();
+
         // cleanup Function for when the components unmount
         return () => {
             isMounted = false;
