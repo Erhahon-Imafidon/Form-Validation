@@ -39,8 +39,8 @@ const Login = () => {
                     user: username,
                     pwd,
                 }),
-                { headers: { 'content-type': 'application/json' } },
                 {
+                    headers: { 'content-type': 'application/json' },
                     withCredentials: true,
                 }
             );
@@ -49,7 +49,7 @@ const Login = () => {
             const roles = response?.data?.roles;
             // set the values to the global state
             setAuth({ username, pwd, accessToken, roles });
-            console.log(pwd, username);
+            console.log('Password:', pwd, 'username:', username);
             // Clears the input fields
             setUsername('');
             setPwd('');

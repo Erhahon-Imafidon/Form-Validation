@@ -16,7 +16,7 @@ const Users = () => {
                     signal: controllers.signal,
                 });
                 console.log(response.data);
-                isMounted && setUsers(response.data);
+                isMounted && setUsers(response?.data);
             } catch (err) {
                 console.log(err);
             }
@@ -42,9 +42,6 @@ const Users = () => {
                 <p>No Users To Display</p>
             )}
             <br />
-            <button className="bg-white text-black w-20 rounded-lg py-1">
-                Refresh
-            </button>
         </article>
     );
 };
