@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import useAxiosPrivate from '../hooks/useAxiosPrivate.js';
 
 const USERS = '/users';
@@ -6,6 +7,8 @@ const USERS = '/users';
 const Users = () => {
     const [users, setUsers] = useState();
     const axiosPrivate = useAxiosPrivate();
+    const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
         let isMounted = true;
@@ -21,6 +24,12 @@ const Users = () => {
                 isMounted && setUsers(newUsers);
             } catch (err) {
                 console.log('Failed to fetch users', err);
+                if (err?.response?.status === 403) {
+                    navigate('/login', {
+                        state: { from: location },
+                        replace: true,
+                    });
+                }
             }
         };
 
