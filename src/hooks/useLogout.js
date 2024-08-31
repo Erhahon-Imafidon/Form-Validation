@@ -7,7 +7,7 @@ const useLogout = () => {
 
     return () => {
         setAuth({});
-        navigate('/login');
+        navigate('/linkpage');
     };
 };
 
