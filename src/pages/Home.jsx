@@ -1,8 +1,14 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useLogout from '../hooks/useLogout.js';
 
 const Home = () => {
-    const Logout = useLogout();
+    const navigate = useNavigate();
+    const logOut = useLogout();
+
+    const signOut = async () => {
+        await logOut();
+        navigate('/linkpage');
+    };
 
     return (
         <section className="space-y-4">
@@ -21,7 +27,7 @@ const Home = () => {
                 Go to the Link Page Page
             </Link>
             <button
-                onClick={Logout}
+                onClick={signOut}
                 className="bg-white text-black w-20 rounded-lg py-1"
             >
                 Sign Out

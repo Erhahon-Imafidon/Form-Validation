@@ -1,13 +1,19 @@
-import { useNavigate } from 'react-router-dom';
 import useAuth from './useAuth.js';
+import axios from '../api/axios.js';
 
 const useLogout = () => {
-    const navigate = useNavigate();
     const { setAuth } = useAuth();
 
-    return () => {
+    return async () => {
         setAuth({});
-        navigate('/linkpage');
+        try {
+            const response = await axios('/logout', {
+                withCredentials: true,
+            });
+            await response;
+        } catch (error) {
+            console.error(error);
+        }
     };
 };
 
