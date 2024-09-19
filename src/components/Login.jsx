@@ -6,7 +6,7 @@ import Axios from '../api/axios.js';
 const LOGIN_URL = '/auth';
 
 const Login = () => {
-    const { setAuth } = useAuth();
+    const { setAuth, persistence, setPersistence } = useAuth();
     const userRef = useRef();
     const errRef = useRef();
     const location = useLocation();
@@ -70,6 +70,15 @@ const Login = () => {
         }
     };
 
+    // Set the Persistence function and Effect
+    const togglePersistence = () => {
+        setPersistence((prev) => !prev);
+    };
+
+    useEffect(() => {
+        localStorage.setItem('persistence', persistence);
+    }, [persistence]);
+
     return (
         <section>
             <p
@@ -106,6 +115,21 @@ const Login = () => {
                 >
                     {isLoading ? 'Loading...' : 'Sign In'}
                 </button>
+                <div className="mt-6 relative">
+                    <input
+                        id="persist"
+                        type="checkbox"
+                        onChange={togglePersistence}
+                        checked={persistence}
+                        className="h-5 w-5 mr-2 cursor-pointer"
+                    />
+                    <label
+                        className="absolute top-[-24px] cursor-pointer"
+                        htmlFor="persist"
+                    >
+                        Trust This Device
+                    </label>
+                </div>
             </form>
             <p>
                 Need an Account? <br />
