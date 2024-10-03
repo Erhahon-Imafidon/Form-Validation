@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth.js';
 import Axios from '../api/axios.js';
+import useLocalStorage from '../hooks/useLocalStorage.js';
 
 const LOGIN_URL = '/auth';
 
@@ -13,7 +14,7 @@ const Login = () => {
     const navigate = useNavigate();
     const from = location.state?.from?.pathname || '/';
 
-    const [username, setUsername] = useState('');
+    const [username, setUsername] = useLocalStorage('user', ''); //useState('');
     const [pwd, setPwd] = useState('');
     const [errMsg, setErrMsg] = useState('');
     const [isLoading, setIsLoading] = useState(false);
