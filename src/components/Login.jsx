@@ -3,11 +3,12 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth.js';
 import Axios from '../api/axios.js';
 import useLocalStorage from '../hooks/useLocalStorage.js';
+import useToggle from '../hooks/useToggle.js';
 
 const LOGIN_URL = '/auth';
 
 const Login = () => {
-    const { setAuth, persistence, setPersistence } = useAuth();
+    const { setAuth } = useAuth();
     const userRef = useRef();
     const errRef = useRef();
     const location = useLocation();
@@ -18,6 +19,7 @@ const Login = () => {
     const [pwd, setPwd] = useState('');
     const [errMsg, setErrMsg] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const [check, toggleCheck] = useToggle('persistence', false);
 
     // Effect to focus on the Username input on page load
     useEffect(() => {
@@ -50,7 +52,7 @@ const Login = () => {
             const roles = response?.data?.roles;
             // set the values to the global state
             setAuth({ username, pwd, accessToken, roles });
-            // console.log('Password:', pwd, 'username:', username);
+
             // Clears the input fields
             setUsername('');
             setPwd('');
@@ -70,16 +72,7 @@ const Login = () => {
             setIsLoading(false);
         }
     };
-
-    // Set the Persistence function and Effect
-    const togglePersistence = () => {
-        setPersistence((prev) => !prev);
-    };
-
-    useEffect(() => {
-        localStorage.setItem('persistence', persistence);
-    }, [persistence]);
-
+    
     return (
         <section>
             <p
@@ -120,8 +113,8 @@ const Login = () => {
                     <input
                         id="persist"
                         type="checkbox"
-                        onChange={togglePersistence}
-                        checked={persistence}
+                        onChange={toggleCheck}
+                        checked={check}
                         className="h-5 w-5 mr-2 cursor-pointer"
                     />
                     <label

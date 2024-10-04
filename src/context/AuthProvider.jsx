@@ -5,14 +5,9 @@ const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
     const [auth, setAuth] = useState({});
-    const [persistence, setPersistence] = useState(
-        JSON.parse(localStorage.getItem('persistence') || false)
-    );
 
     return (
-        <AuthContext.Provider
-            value={{ auth, setAuth, persistence, setPersistence }}
-        >
+        <AuthContext.Provider value={{ auth, setAuth }}>
             {children}
         </AuthContext.Provider>
     );

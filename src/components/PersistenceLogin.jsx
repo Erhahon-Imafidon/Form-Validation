@@ -2,10 +2,12 @@ import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import useAuth from '../hooks/useAuth.js';
 import useRefreshToken from '../hooks/useRefreshToken.js';
+import useToggle from '../hooks/useToggle.js';
 
 const PersistenceLogin = () => {
     const [isLoading, setIsLoading] = useState(true);
-    const { auth, persistence } = useAuth();
+    const { auth } = useAuth();
+    const [persistence] = useToggle('persistence', false);
     const refresh = useRefreshToken();
 
     useEffect(() => {
