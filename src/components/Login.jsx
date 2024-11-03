@@ -51,7 +51,7 @@ const Login = () => {
             const accessToken = response?.data?.accessToken;
             const roles = response?.data?.roles;
             // set the values to the global state
-            setAuth({ username, pwd, accessToken, roles });
+            setAuth({ username, accessToken, roles });
 
             // Clears the input fields
             setUsername('');
@@ -72,7 +72,7 @@ const Login = () => {
             setIsLoading(false);
         }
     };
-    
+
     return (
         <section>
             <p

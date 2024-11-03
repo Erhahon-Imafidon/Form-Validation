@@ -6,7 +6,7 @@ import App from './App.jsx';
 import './index.css';
 import { AuthProvider } from './context/AuthProvider.jsx';
 
-let process = { env: { NODE_ENV: 'production' } };
+let process = { env: { NODE_ENV: 'development' } };
 if (process.env.NODE_ENV === 'production') {
     disableReactDevTools();
 }

@@ -19,9 +19,10 @@ const Users = () => {
                 const response = await axiosPrivate.get(USERS, {
                     signal: controllers.signal,
                 });
-                console.log(response.data);
+                // console.log(response.data);
                 const newUsers = response.data;
-                isMounted && setUsers(newUsers);
+                const userNames = newUsers.map((user) => user.username);
+                isMounted && setUsers(userNames);
             } catch (err) {
                 console.log('Failed to fetch users', err);
                 if (err?.response?.status === 403) {
@@ -47,7 +48,7 @@ const Users = () => {
             {users?.length ? (
                 <ul>
                     {users.map((user, i) => (
-                        <li key={i}>{user?.username}</li>
+                        <li key={i}>{user}</li>
                     ))}
                 </ul>
             ) : (
