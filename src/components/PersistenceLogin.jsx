@@ -7,8 +7,8 @@ import useToggle from '../hooks/useToggle.js';
 const PersistenceLogin = () => {
     const [isLoading, setIsLoading] = useState(true);
     const { auth } = useAuth();
-    const [persistence] = useToggle('persistence', false);
     const refresh = useRefreshToken();
+    const [persistence] = useToggle('persistence', false);
 
     useEffect(() => {
         let isMounted = true;
