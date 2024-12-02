@@ -79,7 +79,7 @@ const RegisterTwo = () => {
                     pwd,
                 }),
                 {
-                    headers: { 'content-type': 'application/json' },
+                    headers: { 'Content-Type': 'application/json' },
                     withCredentials: true,
                 }
             );
